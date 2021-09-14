@@ -26,4 +26,8 @@ public class PagesController {
         return MathService.addAll(myList);
     }
 
+    @RequestMapping("/math/volume/{length}/{width}/{height}")
+    public String calcVolume(@PathVariable int length, @PathVariable int width, @PathVariable int height){
+        return String.format("The volume of a %sx%sx%s rectangle is %s", length, width, height, length*width*height);
+    }
 }

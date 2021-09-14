@@ -90,5 +90,15 @@ public class SpringPlaygroundApplicationTests {
 
         }
     }
+    @Nested
+    class volumeWithPathTests{
+        @Test
+        void testVolume() throws Exception{
+            mvc.perform(post("/math/volume/3/4/5"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+        }
+
+    }
 
 }

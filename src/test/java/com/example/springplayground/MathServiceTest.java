@@ -35,4 +35,5 @@ public class MathServiceTest {
 
         assertEquals(expected, actual);
     }
+
 }
