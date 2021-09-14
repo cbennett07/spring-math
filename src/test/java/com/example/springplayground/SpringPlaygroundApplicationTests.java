@@ -22,30 +22,6 @@ public class SpringPlaygroundApplicationTests {
     MockMvc mvc;
 
     //TESTS
-    @Test //home page
-    public void testHomePage() throws Exception {
-        RequestBuilder request = get("/hello");
-
-        this.mvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(content().string("Hello World!"));
-    }
-
-    @Test
-    public void testIndividualExample() throws Exception{
-        RequestBuilder request = get("/individual-example/foo/bar");
-
-        this.mvc.perform(request)
-                .andExpect(status().isOk())
-                .andExpect(content().string("q:foo from:bar"));
-    }
-    @Test
-    public void testHeaders() throws Exception {
-        this.mvc.perform(get("/header").header("Host", "example.com"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("example.com"));
-    }
-
     @Nested
     class MathTests{
         @Test
@@ -80,7 +56,7 @@ public class SpringPlaygroundApplicationTests {
         }
 
     }
-    @Nested
+    @Nested //Math Sum exercise
     class mathSumPost{
         @Test
         void testMathSum() throws Exception{
@@ -90,7 +66,7 @@ public class SpringPlaygroundApplicationTests {
 
         }
     }
-    @Nested
+    @Nested // Math Volume exercise
     class volumeWithPathTests{
         @Test
         void testVolume() throws Exception{
@@ -99,7 +75,7 @@ public class SpringPlaygroundApplicationTests {
                     .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
         }
     }
-    @Nested
+    @Nested // Math Calculate Area exercise
     class testArea {
         @Test
         void testCircleArea() throws Exception{

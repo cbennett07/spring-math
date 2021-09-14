@@ -20,7 +20,7 @@ public class MathServiceTest {
             "divide, 10, 5, '10 / 5 = 2'"
     })
     public void MathServiceGetCalculate(String operation, int x, int y, String expected) throws Exception{
-        String actual = MathService.getCalculate(operation,x,y);
+        String actual = MathService.getAnswer(operation,x,y);
 
         assertEquals(expected, actual);
     }

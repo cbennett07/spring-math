@@ -19,10 +19,8 @@ public class MathService {
         }
         return output.toString();
     }
-    public static String getCalculate(String operation, int x, int y){
+    static String getAnswer(String operation, int x, int y){
         switch (operation) {
-            case "add":
-                return String.format("%s + %s = %s", x, y, x + y);
             case "subtract":
                 return String.format("%s - %s = %s", x, y, x - y);
             case "multiply":

@@ -17,7 +17,7 @@ public class PagesController {
     @GetMapping("/math/calculate")
     public String getMathString(@RequestParam(required = false, defaultValue = "add") String operation, @RequestParam int x, @RequestParam int y) {
 //
-        return MathService.getCalculate(operation, x, y);
+        return MathService.getAnswer(operation, x, y);
     }
 
     @PostMapping("/math/sum")
@@ -40,7 +40,7 @@ public class PagesController {
             catch (Exception e) {return "Invalid";}
             return String.format("Area of a circle with a radius of %s is %.5f", radius, intRadius * intRadius * Math.PI);
         }
-        else {return "Invalid x";}
+        else {return "Invalid";}
     }
     @PostMapping(value = "/math/area", params = {"type", "width", "height"})
     public String calcRectangleArea(@RequestParam String type, @RequestParam String width, @RequestParam String height){
