@@ -98,7 +98,98 @@ public class SpringPlaygroundApplicationTests {
                     .andExpect(status().isOk())
                     .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
         }
-
     }
+    @Nested
+    class testArea {
+        @Test
+        void testCircleArea() throws Exception{
+            MockHttpServletRequestBuilder request = post("/math/area")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("type", "circle")
+                    .param("radius","4");
+//                    .param("width","3")
+//                    .param("height", "10");
 
+
+            mvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("Area of a circle with a radius of 4 is 50.26548"));
+        }
+        @Test
+        void testCircleMethodWithRectangleType() throws Exception{
+                MockHttpServletRequestBuilder request = post("/math/area")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("type", "rectangle")
+                        .param("radius","4");
+//                    .param("width","3")
+//                    .param("height", "10");
+
+                mvc.perform(request)
+                        .andExpect(status().isOk())
+                        .andExpect(content().string("Invalid"));
+        }
+        @Test
+        void testCircleMethodWithNonIntegerRadius() throws Exception{
+            MockHttpServletRequestBuilder request = post("/math/area")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("type", "circle")
+                    .param("radius","x");
+//                    .param("width","3")
+//                    .param("height", "10");
+
+            mvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("Invalid"));
+        }
+        @Test
+        void testRectangleArea() throws Exception{
+            MockHttpServletRequestBuilder request = post("/math/area")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("type", "rectangle")
+                    //.param("radius","4");
+                    .param("width","3")
+                    .param("height", "10");
+
+            mvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("Area of a 3x10 rectangle is 30"));
+        }
+        @Test
+        void testRectangleAreaWithCircle() throws Exception{
+            MockHttpServletRequestBuilder request = post("/math/area")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("type", "circle")
+                    //.param("radius","4");
+                    .param("width","3")
+                    .param("height", "10");
+
+            mvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("Invalid"));
+        }
+        @Test
+        void testRectangleMethodWithNonIntegerWidthOrHeight() throws Exception{
+            MockHttpServletRequestBuilder request = post("/math/area")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("type", "rectangle")
+                    //.param("radius","x");
+                    .param("width","x")
+                    .param("height", "10");
+
+            mvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("Invalid"));
+
+            request = post("/math/area")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("type", "rectangle")
+                    //.param("radius","x");
+                    .param("width","4")
+                    .param("height", "y");
+
+            mvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("Invalid"));
+        }
+    }
 }
