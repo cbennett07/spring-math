@@ -1,14 +1,10 @@
 package com.example.springplayground;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Map;
 
 @RestController
 public class PagesController {
@@ -43,7 +39,9 @@ public class PagesController {
         else {return "Invalid";}
     }
     @PostMapping(value = "/math/area", params = {"type", "width", "height"})
-    public String calcRectangleArea(@RequestParam String type, @RequestParam String width, @RequestParam String height){
+    public String calcRectangleArea(@RequestParam String type,
+                                    @RequestParam String width,
+                                    @RequestParam String height){
         int intWidth;
         int intHeight;
         if (type.equals("rectangle")) {
@@ -51,8 +49,26 @@ public class PagesController {
                 intWidth = Integer.parseInt(width);
                 intHeight= Integer.parseInt(height);}
             catch (Exception e) {return "Invalid";}
-            return String.format("Area of a %dx%d rectangle is %d", intWidth, intHeight, intHeight * intWidth);
+            return String.format("Area of a %dx%d rectangle is %d",
+                    intWidth, intHeight, intHeight * intWidth);
         }
         else {return "Invalid";}
+    }
+
+    //get cookie and header info
+    @GetMapping("/cookie")
+    public String getCookie(@CookieValue(name="foo") String cookie){
+        return cookie;
+    }
+
+    @GetMapping("/header")
+    public String getHeader(@RequestHeader String host) {
+        return host;
+    }
+
+    //dog test, creating object with class
+    @GetMapping("/dog/message")
+    public String getDog(DogService newDog){
+        return String.format(newDog.dogMessage());
     }
 }
